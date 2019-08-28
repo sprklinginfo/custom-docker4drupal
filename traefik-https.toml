@@ -1,0 +1,22 @@
+defaultEntryPoints = ["https"]
+[entryPoints]
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+    
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "my-awesome-app.org"
+watch = true
+exposedByDefault = false
+
+[acme]
+email = "your-email-here@my-awesome-app.org"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+[acme.httpChallenge]
+entryPoint = "http"
+
+[api]
+# ... including your docker and ssl certificate setup
