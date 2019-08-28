@@ -63,12 +63,14 @@ $ winpty docker-compose exec php sh
 ```
 
 ##To install new drupal modules
+In project folder of the host machine:
 ```
 $ cd drupal/
 $ composer require drupal/module-name
 ```
 
-##To update Drupal Core and its dependencies.
+##To update Drupal Core and its dependencies
+In project folder of the host machine:
 ```
 $ cd drupal/
 $ composer update drupal/core webflo/drupal-core-require-dev "symfony/*" --with-dependencies
@@ -79,12 +81,16 @@ Gernate the password for admin first:
 $ docker run --rm httpd:2.4-alpine htpasswd -nbB admin pw4admin | cut -d ":" -f 2
 ```
 The output is $2y$05$erBb3xrKAaI3GdSUobH2wOr3Kv8fzlPfz7CsB4OolwBZoXUL4I9xG
-each $ in above string need to be escaped.
+each $ in above string need to be escaped as $$
 In portainer section change 'command' link like this:
 ```
 command: --admin-password "$$2y$$05$$erBb3xrKAaI3GdSUobH2wOr3Kv8fzlPfz7CsB4OolwBZoXUL4I9xG" -H unix:///var/run/docker.sock
 ```
-
+Note: we can also get md5 string on http://www.htaccesstools.com/htpasswd-generator/ site. 
+## Access a container as root
+```
+winpty docker exec -u 0 -it my_drupal8_project_php bash
+```
 
 
 This template is adpated from Docker4Drupal:
