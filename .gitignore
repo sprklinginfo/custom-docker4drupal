@@ -21,7 +21,7 @@ private/
 /web/vendor/
 
 # Ignore stored database data and sql dumps
-sqldata/
+dbdata/
 dumps/*.sql
 dumps/*.mysql
 dumps/*.gz
