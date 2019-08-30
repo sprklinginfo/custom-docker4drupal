@@ -36,11 +36,11 @@ Copy the existing drupal code into drupal/web directory.
 Update *settings.php* file in the following section:
 ```
 $databases['default']['default'] = array (
-  'database' => getenv('DATABASE_NAME'),
-  'username' => getenv('DATABASE_USER'),
-  'password' => getenv('DATABASE_PASSWORD'),
+  'database' => getenv('DB_NAME'),
+  'username' => getenv('DB_USER'),
+  'password' => getenv('DB_PASSWORD'),
   'prefix' => '',
-  'host' => getenv('DATABASE_HOST'),
+  'host' => getenv('DB_HOST'),
   'port' => '3306',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
