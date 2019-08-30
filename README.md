@@ -43,7 +43,7 @@ $databases['default']['default'] = array (
   'host' => getenv('DB_HOST'),
   'port' => '3306',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'driver' => 'mysql',
+  'driver' => getenv('DB_DRIVER'),
 );
 ```
 For local development, 'trusted_host_patterns' section may need to be updated as well:
