@@ -1,0 +1,9 @@
+[tls.options]
+
+  [tls.options.default]
+    minVersion = "VersionTLS12"
+    sniStrict = true
+
+  [[tls.certificates]]
+    certFile = "/var/certs/wildcard_sheridanc_on_ca.crt"
+    keyFile = "/var/certs/wildcard_sheridanc_on_ca.key"

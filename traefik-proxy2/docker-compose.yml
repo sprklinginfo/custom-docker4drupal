@@ -1,0 +1,55 @@
+version: "3"
+
+# networks:
+#   default:
+#     driver: bridge
+#   traefik:
+#     internal: true
+networks:
+  libsfm-proxy:
+    external: 
+      name: libsfm-proxy
+  sfm_default:
+    external:
+      name: sfm_default
+
+services:
+  traefik:
+    image: traefik:2.0
+    container_name: traefik2
+    command: --api.insecure=true --providers.docker
+    labels:
+      - "traefik.enable=true"
+    networks:
+      - libsfm-proxy
+      - sfm_default
+    ports:
+      - 80:80
+      - 443:443
+    # restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./conf/traefik.toml:/etc/traefik/traefik.toml
+      - ./conf/dynamic.toml:/etc/traefik/dynamic.toml
+      - "/SC/ss/ssl/wildcard_sheridanc_on_ca.crt:/var/certs/wildcard_sheridanc_on_ca.crt"
+      - "/SC/ss/ssl/wildcard_sheridanc_on_ca.key:/var/certs/wildcard_sheridanc_on_ca.key"
+
+  # mysite:
+  #   depends_on:
+  #     - traefik
+  #   image: mysitesimage
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.middlewares.mysite-https.redirectscheme.scheme=https"
+  #     - "traefik.http.routers.mysite-http.entrypoints=web"
+  #     - "traefik.http.routers.mysite-http.rule=Host(`mysitesdomain.com`)"
+  #     - "traefik.http.routers.mysite-http.middlewares=mysite-https@docker"
+  #     - "traefik.http.routers.mysite.entrypoints=web-secure"
+  #     - "traefik.http.routers.mysite.rule=Host(`mysitesdomain.com`)"
+  #     - "traefik.http.routers.mysite.tls=true"
+  #     - "traefik.http.routers.mysite.tls.certresolver=default"
+  #   networks:
+  #     - default
+  #   restart: always
+  #   volumes:
+  #     - ./data/volumes/mysite:/var/www/mysite/data

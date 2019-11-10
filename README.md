@@ -91,7 +91,33 @@ Note: we can also get md5 string on http://www.htaccesstools.com/htpasswd-genera
 ```
 winpty docker exec -u 0 -it my_drupal8_project_php bash
 ```
+## How to enable xdebug
+1. enable the following lines in PHP container, then recreate the container.
+```
+      PHP_XDEBUG: 1
+      PHP_XDEBUG_DEFAULT_ENABLE: 1
+      PHP_XDEBUG_REMOTE_CONNECT_BACK: 0
+      PHP_IDE_CONFIG: serverName=my-ide
+      PHP_XDEBUG_REMOTE_HOST: host.docker.internal # Docker 18.03+ Mac/Win
+      PHP_XDEBUG_REMOTE_LOG: /tmp/php-xdebug.log
+      PHP_XDEBUG_REMOTE_AUTOSTART: 1
+```
+2. Update hosts file with two more lines:
+```
+0.0.0.0     localhost
+10.0.75.1   localhost
+```
+3. in PHPSTORM IDE
++ Open *Run > Edit Configurations* from the main menu, choose *Defaults > PHP Web Page* in the left sidebar
++ Click to *[...]* to the right of Server and add a new server
++ Enter name **my-ide** (as specified in PHP_IDE_CONFIG)
++ Enter any host, it does not matter
++ Check Use path mappings, select path to your project and enter /var/www/html in the right column (Absolute path on the server). Local *web/* -> */var/www/html/web* in the container.
++ Choose newly created server in "Server" for PHP Web Page
++ Save settings
 
+4. In PHPSTORM IDE
+Select menu *Run > Debug the newly created configuration*.
 
 This template is adpated from Docker4Drupal:
   - [Docs](https://wodby.com/docs/stacks/drupal/local/#usage)
