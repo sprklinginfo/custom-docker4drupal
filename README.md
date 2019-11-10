@@ -120,7 +120,7 @@ winpty docker exec -u 0 -it my_drupal8_project_php bash
 Select menu *Run > Debug the newly created configuration*.
 
 ## Global Traefik container
-Use *traefik-proxy2* folder to use traefik as a global container
+Use *traefik-proxy2* folder as a global container
 
 This template is adpated from Docker4Drupal:
   - [Docs](https://wodby.com/docs/stacks/drupal/local/#usage)
